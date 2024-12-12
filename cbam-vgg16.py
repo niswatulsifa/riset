@@ -10,19 +10,14 @@ import pytz
 # Fungsi untuk mendownload model dari Google Drive
 @st.cache_resource
 def download_model():
-    # URL file model Google Drive
-    model_url = "https://drive.google.com/uc?id=1GOL7SjYXnzYH_FD4UEksC4ubVboa93JR"  # Ganti dengan ID file model Anda
-    output_path = "best_model.keras"  # Nama file untuk model yang diunduh
+    # Gantilah dengan ID file model Google Drive yang benar
+    model_url = "https://drive.google.com/uc?id=1GOL7SjYXnzYH_FD4UEksC4ubVboa93JR"  # Update dengan link unduhan langsung
+    output_path = "best_model.keras"
     
-    # Cek apakah file sudah ada
     if not os.path.exists(output_path):
         st.write("Mengunduh model...")  # Informasi unduhan
-        try:
-            # Mengunduh model menggunakan gdown
-            gdown.download(model_url, output_path, quiet=False)
-            st.write("Model berhasil diunduh!")  # Konfirmasi setelah unduhan selesai
-        except Exception as e:
-            st.error(f"Gagal mengunduh model: {e}")
+        gdown.download(model_url, output_path, quiet=False)
+        st.write("Model berhasil diunduh!")  # Konfirmasi setelah unduhan selesai
     else:
         st.write("Model sudah ada di direktori.")
         
@@ -32,6 +27,10 @@ def download_model():
 @st.cache_resource
 def load_model(model_path):
     try:
+        # Debugging: Cek lokasi dan keberadaan file
+        st.write(f"Current directory: {os.getcwd()}")  # Menampilkan direktori kerja saat ini
+        st.write(f"Is model file present? {os.path.exists(model_path)}")  # Mengecek apakah model ada
+
         # Memastikan file model ada
         if not os.path.exists(model_path):
             raise FileNotFoundError(f"File model tidak ditemukan di {model_path}")
