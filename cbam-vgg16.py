@@ -12,7 +12,7 @@ import pytz
 def download_model():
     # Gantilah dengan ID file model Google Drive yang benar
     model_url = "https://drive.google.com/uc?id=1GOL7SjYXnzYH_FD4UEksC4ubVboa93JR"  # Update dengan link unduhan langsung
-    output_path = "best_model.keras"
+    output_path = "best_model.h5"
     
     if not os.path.exists(output_path):
         st.write("Mengunduh model...")  # Informasi unduhan
@@ -36,7 +36,7 @@ def load_model(model_path):
             raise FileNotFoundError(f"File model tidak ditemukan di {model_path}")
         
         # Memuat model dengan TensorFlow
-        model_path = os.path.join(os.getcwd(), 'best_model.keras')  # Pastikan file berada di direktori yang benar
+        model_path = os.path.join(os.getcwd(), 'best_model.h5')  # Pastikan file berada di direktori yang benar
         model = tf.keras.models.load_model(model_path)
         #model = tf.keras.models.load_model(model_path)
         return model
