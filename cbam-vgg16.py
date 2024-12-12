@@ -10,9 +10,9 @@ import pytz
 # Fungsi untuk mendownload model dari Google Drive
 @st.cache_resource
 def download_model():
-    # Gantilah dengan URL yang benar ke file model
-    model_url = "https://drive.google.com/file/d/1GOL7SjYXnzYH_FD4UEksC4ubVboa93JR/view?usp=drive_link"  # Update dengan link file model yang benar
-    output_path = "best_model.keras"
+    # Gantilah dengan ID file model Google Drive yang benar
+    model_url = "https://drive.google.com/uc?id=1GOL7SjYXnzYH_FD4UEksC4ubVboa93JR"  # Update dengan link unduhan langsung
+    output_path = "CBAM_VGG16.keras"
     
     if not os.path.exists(output_path):
         st.write("Mengunduh model...")  # Informasi unduhan
@@ -27,6 +27,10 @@ def download_model():
 @st.cache_resource
 def load_model(model_path):
     try:
+        # Pastikan file model ada
+        if not os.path.exists(model_path):
+            raise FileNotFoundError(f"File model tidak ditemukan di {model_path}!")
+        
         model = tf.keras.models.load_model(model_path)
         return model
     except Exception as e:
