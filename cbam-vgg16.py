@@ -11,7 +11,7 @@ import pytz
 @st.cache_resource
 def download_model():
     # Gantilah dengan URL yang benar ke file model
-    model_url = "https://drive.google.com/uc?id=1GOL7SjYXnzYH_FD4UEksC4ubVboa93JR"  # Update dengan link file model yang benar
+    model_url = "https://drive.google.com/file/d/1GOL7SjYXnzYH_FD4UEksC4ubVboa93JR/view?usp=drive_link"  # Update dengan link file model yang benar
     output_path = "best_model.keras"
     
     if not os.path.exists(output_path):
