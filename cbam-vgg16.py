@@ -10,7 +10,7 @@ import pytz
 # Fungsi untuk mendownload model dari Google Drive
 @st.cache_resource
 def download_model():
-    model_url = "https://drive.google.com/uc?id=1--XGx1vFU-VvlvPBed39Z40ehGv-Uttr"
+    model_url = "https://drive.google.com/drive/folders/12diEQDwIf3TriiqdKTd0xRtEiRDMl7NQ?usp=drive_link"
     output_path = "best_model.keras"
     if not os.path.exists(output_path):
         gdown.download(model_url, output_path, quiet=False)
@@ -45,7 +45,7 @@ current_date = get_current_date()
 st.sidebar.write(f"Tanggal: **{current_date}**")
 
 # Pilih menu
-app_mode = st.sidebar.selectbox("Pilih Menu", ["Klasifikasi", "Petunjuk", "Tentang"])
+app_mode = st.sidebar.selectbox("Pilih Menu", ["Klasifikasi", "Identitas"])
 
 if app_mode == "Klasifikasi":
     st.title("PENERAPAN CONVOLUTIONAL BLOCK ATTENTION MODULE (CBAM) PADA  ARSITEKTUR DEEP LEARNING VGG16 UNTUK KLASIFIKASI COVID-19")
@@ -86,21 +86,8 @@ if app_mode == "Klasifikasi":
         except Exception as e:
             st.error(f"Terjadi kesalahan: {e}")
 
-elif app_mode == "Tentang Aplikasi & Petunjuk Penggunaan":
-    st.title("Petunjuk Penggunaan")
-    st.write("""
-        1. Pilih menu **Klasifikasi** untuk mengunggah Citra Chest X-Ray.
-        2. Pilih Citra Chest X-Ray yang ingin Anda klasifikasikan.
-        3. Aplikasi ini akan memberikan prediksi apakah gambar tersebut termasuk **COVID-19**, **Pneumonia**, atau **Normal**.
-        4. Hasil prediksi akan menunjukkan nama kelas dan tingkat kepercayaan model.
-    """)
-    st.title("Tentang Aplikasi")
-    st.write("""
-        Aplikasi ini menggunakan model **CBAM-VGG16** yang telah dilatih untuk mengklasifikasikan Chest X-Ray menjadi tiga kelas:
-        - **COVID-19**
-        - **Pneumonia**
-        - **Normal**
-    """)
+elif app_mode == "Identitas":
+    st.title("Identitas")
     st.write("""
         oleh : <br>
         Niswatul Sifa 210411100145 <br>
