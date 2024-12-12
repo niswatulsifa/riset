@@ -49,7 +49,7 @@ app_mode = st.sidebar.selectbox("Pilih Menu", ["Klasifikasi", "Penulis"])
 
 if app_mode == "Klasifikasi":
     st.title("PENERAPAN CONVOLUTIONAL BLOCK ATTENTION MODULE (CBAM) PADA  ARSITEKTUR DEEP LEARNING VGG16 UNTUK KLASIFIKASI COVID-19")
-    st.text("Aplikasi ini menggunakan arsitektur EfficientNet-B0.")
+    st.text("Aplikasi ini menggunakan CBAM-VGG16.")
 
     # Unduh model
     model_path = download_model()
