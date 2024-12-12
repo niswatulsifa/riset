@@ -12,7 +12,7 @@ import pytz
 def download_model():
     # Gantilah dengan URL yang benar ke file model
     model_url = "https://drive.google.com/uc?id=1GOL7SjYXnzYH_FD4UEksC4ubVboa93JR"  # Update dengan link file model yang benar
-    output_path = "VGG16.keras"
+    output_path = "best_model.keras"
     
     if not os.path.exists(output_path):
         st.write("Mengunduh model...")  # Informasi unduhan
