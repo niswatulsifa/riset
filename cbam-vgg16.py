@@ -19,24 +19,8 @@ def download_model():
 # Fungsi untuk memuat model
 @st.cache_resource
 def load_model(model_path):
-    try:
-        model = tf.keras.models.load_model(model_path)
-        return model
-    except Exception as e:
-        st.error(f"Error loading model: {str(e)}")
-        return None
-        
-model = tf.keras.models.load_model('/content/drive/MyDrive/210411100145_NiswatulSifa/dataset/CBAM_VGG16.keras')
-
-if not os.path.exists(model_path):
-    st.error(f"Model path {model_path} does not exist!")
-else:
-    model = load_model(model_path)
-
-#@st.cache_resource
-#def load_model(model_path):
- #   model = tf.keras.models.load_model(model_path)
-  #  return model
+    model = tf.keras.models.load_model(model_path)
+    return model
 
 # Fungsi untuk memproses gambar
 def preprocess_image(image, target_size=(224, 224)):
