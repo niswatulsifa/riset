@@ -10,7 +10,8 @@ import pytz
 # Fungsi untuk mendownload model dari Google Drive
 @st.cache_resource
 def download_model():
-    model_url = "https://drive.google.com/drive/folders/12diEQDwIf3TriiqdKTd0xRtEiRDMl7NQ?usp=drive_link"
+    # Link langsung ke file .keras, pastikan Anda mengupdate dengan URL yang benar
+    model_url = "https://drive.google.com/uc?id=1GOL7SjYXnzYH_FD4UEksC4ubVboa93JR"  # Update URL Google Drive
     output_path = "VGG16.keras"
     if not os.path.exists(output_path):
         gdown.download(model_url, output_path, quiet=False)
@@ -19,8 +20,12 @@ def download_model():
 # Fungsi untuk memuat model
 @st.cache_resource
 def load_model(model_path):
-    model = tf.keras.models.load_model(model_path)
-    return model
+    try:
+        model = tf.keras.models.load_model(model_path)
+        return model
+    except Exception as e:
+        st.error(f"Error saat memuat model: {e}")
+        return None
 
 # Fungsi untuk memproses gambar
 def preprocess_image(image, target_size=(224, 224)):
@@ -57,34 +62,35 @@ if app_mode == "Klasifikasi":
     # Muat model
     model = load_model(model_path)
 
-    # Upload gambar
-    uploaded_file = st.file_uploader("Unggah gambar X-Ray Anda", type=["jpg", "png", "jpeg"])
+    if model is not None:
+        # Upload gambar
+        uploaded_file = st.file_uploader("Unggah gambar X-Ray Anda", type=["jpg", "png", "jpeg"])
 
-    if uploaded_file is not None:
-        st.image(uploaded_file, caption="Gambar yang diunggah",use_container_width=True)
-        try:
-            # Proses gambar
-            image = Image.open(uploaded_file).convert("RGB")
-            processed_image = preprocess_image(image)
+        if uploaded_file is not None:
+            st.image(uploaded_file, caption="Gambar yang diunggah",use_container_width=True)
+            try:
+                # Proses gambar
+                image = Image.open(uploaded_file).convert("RGB")
+                processed_image = preprocess_image(image)
 
-            # Debugging bentuk input
-            st.write(f"Bentuk input gambar: {processed_image.shape}")
+                # Debugging bentuk input
+                st.write(f"Bentuk input gambar: {processed_image.shape}")
 
-            # Label yang sesuai dengan kelas yang digunakan saat pelatihan (berurutan secara alfabet)
-            labels = ['COVID-19', 'Normal', 'Pneumonia']
+                # Label yang sesuai dengan kelas yang digunakan saat pelatihan (berurutan secara alfabet)
+                labels = ['COVID-19', 'Normal', 'Pneumonia']
 
-            # Prediksi dengan model
-            prediction = model.predict(processed_image)
+                # Prediksi dengan model
+                prediction = model.predict(processed_image)
 
-            # Ambil indeks kelas dengan probabilitas tertinggi
-            predicted_class_index = np.argmax(prediction)
+                # Ambil indeks kelas dengan probabilitas tertinggi
+                predicted_class_index = np.argmax(prediction)
 
-            # Menampilkan nama kelas sesuai dengan label
-            predicted_class = labels[predicted_class_index]
-            st.write(f"Prediksi: **{predicted_class}**")
-            st.write(f"Confidence: {np.max(prediction) * 100:.2f}%")
-        except Exception as e:
-            st.error(f"Terjadi kesalahan: {e}")
+                # Menampilkan nama kelas sesuai dengan label
+                predicted_class = labels[predicted_class_index]
+                st.write(f"Prediksi: **{predicted_class}**")
+                st.write(f"Confidence: {np.max(prediction) * 100:.2f}%")
+            except Exception as e:
+                st.error(f"Terjadi kesalahan: {e}")
 
 elif app_mode == "Penulis":
     st.title("Penulis")
