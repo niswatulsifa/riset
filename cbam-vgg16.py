@@ -11,7 +11,7 @@ import pytz
 @st.cache_resource
 def download_model():
     model_url = "https://drive.google.com/drive/folders/12diEQDwIf3TriiqdKTd0xRtEiRDMl7NQ?usp=drive_link"
-    output_path = "best_model.keras"
+    output_path = "VGG16.keras"
     if not os.path.exists(output_path):
         gdown.download(model_url, output_path, quiet=False)
     return output_path
