@@ -11,8 +11,8 @@ import pytz
 @st.cache_resource
 def download_model():
     # Gantilah dengan ID file model Google Drive yang benar
-    model_url = "https://drive.google.com/file/d/1GOL7SjYXnzYH_FD4UEksC4ubVboa93JR"  # Ganti dengan link model yang benar
-    output_path = "model.keras"
+    model_url = "https://drive.google.com/file/d/1lG1UJCt6Fc-EpmeRU7WBvp6h6qek17at"  # Ganti dengan link model yang benar
+    output_path = "best_model.keras"
     
     if not os.path.exists(output_path):
         st.write("Mengunduh model...")  # Informasi unduhan
@@ -29,8 +29,16 @@ def download_model():
 # Fungsi untuk memuat model
 @st.cache_resource
 def load_model(model_path):
-    model = tf.keras.models.load_model(model_path)
-    return model
+    try:
+        # Pastikan file model ada
+        if not os.path.exists(model_path):
+            raise FileNotFoundError(f"File model tidak ditemukan di {model_path}! Pastikan model sudah diunduh.")
+        
+        model = tf.keras.models.load_model(model_path)
+        return model
+    except Exception as e:
+        st.error(f"Error saat memuat model: {e}")
+        return None
 
 # Fungsi untuk memproses gambar
 def preprocess_image(image, target_size=(224, 224)):
