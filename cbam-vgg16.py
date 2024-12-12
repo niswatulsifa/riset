@@ -29,16 +29,8 @@ def download_model():
 # Fungsi untuk memuat model
 @st.cache_resource
 def load_model(model_path):
-    try:
-        # Pastikan file model ada
-        if not os.path.exists(model_path):
-            raise FileNotFoundError(f"File model tidak ditemukan di {model_path}! Pastikan model sudah diunduh.")
-        
-        model = tf.keras.models.load_model(model_path)
-        return model
-    except Exception as e:
-        st.error(f"Error saat memuat model: {e}")
-        return None
+    model = tf.keras.models.load_model(model_path)
+    return model
 
 # Fungsi untuk memproses gambar
 def preprocess_image(image, target_size=(224, 224)):
