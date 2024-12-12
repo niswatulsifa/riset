@@ -36,9 +36,8 @@ def load_model(model_path):
             raise FileNotFoundError(f"File model tidak ditemukan di {model_path}")
         
         # Memuat model dengan TensorFlow
-        model_path = os.path.join(os.getcwd(), 'best_model.h5')  # Pastikan file berada di direktori yang benar
-        model = tf.keras.models.load_model(model_path)
-        #model = tf.keras.models.load_model(model_path)
+        #model_path = os.path.join(os.getcwd(), 'best_model.h5')  # Pastikan file berada di direktori yang benar
+        model = tf.keras.models.load_model(model)
         return model
     except Exception as e:
         st.error(f"Error saat memuat model: {e}")
