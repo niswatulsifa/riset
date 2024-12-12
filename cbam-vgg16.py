@@ -10,17 +10,19 @@ import pytz
 # Fungsi untuk mendownload model dari Google Drive
 @st.cache_resource
 def download_model():
-    # Gantilah dengan ID file model Google Drive yang benar
-    model_url = "https://drive.google.com/file/d/1lG1UJCt6Fc-EpmeRU7WBvp6h6qek17at"  # Ganti dengan link model yang benar
-    output_path = "best_model.keras"
+    # URL file model Google Drive
+    model_url = "https://drive.google.com/uc?id=1GOL7SjYXnzYH_FD4UEksC4ubVboa93JR"  # Ganti dengan ID file model Anda
+    output_path = "best_model.keras"  # Nama file untuk model yang diunduh
     
+    # Cek apakah file sudah ada
     if not os.path.exists(output_path):
         st.write("Mengunduh model...")  # Informasi unduhan
         try:
+            # Mengunduh model menggunakan gdown
             gdown.download(model_url, output_path, quiet=False)
             st.write("Model berhasil diunduh!")  # Konfirmasi setelah unduhan selesai
         except Exception as e:
-            st.error(f"Terjadi kesalahan saat mengunduh model: {e}")
+            st.error(f"Gagal mengunduh model: {e}")
     else:
         st.write("Model sudah ada di direktori.")
         
@@ -30,10 +32,11 @@ def download_model():
 @st.cache_resource
 def load_model(model_path):
     try:
-        # Pastikan file model ada
+        # Memastikan file model ada
         if not os.path.exists(model_path):
-            raise FileNotFoundError(f"File model tidak ditemukan di {model_path}! Pastikan model sudah diunduh.")
+            raise FileNotFoundError(f"File model tidak ditemukan di {model_path}")
         
+        # Memuat model dengan TensorFlow
         model = tf.keras.models.load_model(model_path)
         return model
     except Exception as e:
@@ -107,7 +110,8 @@ if app_mode == "Klasifikasi":
 
 elif app_mode == "Penulis":
     st.title("Penulis")
-    st.write("""oleh : <br>
+    st.write("""
+        oleh : <br>
         Niswatul Sifa 210411100145 <br>
         Dosen Pembimbing Riset : Prof. Dr. Rima Tri Wahyuningrum, S.T., MT.
     """, unsafe_allow_html=True)
