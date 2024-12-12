@@ -10,7 +10,7 @@ import pytz
 # Fungsi untuk mendownload model dari Google Drive
 @st.cache_resource
 def download_model():
-    model_url = "https://drive.google.com/uc?id=1--XGx1vFU-VvlvPBed39Z40ehGv-Uttr"
+    model_url = "https://drive.google.com/file/d/1lG1UJCt6Fc-EpmeRU7WBvp6h6qek17at"
     output_path = "best_model.keras"
     if not os.path.exists(output_path):
         gdown.download(model_url, output_path, quiet=False)
@@ -45,11 +45,11 @@ current_date = get_current_date()
 st.sidebar.write(f"Tanggal: **{current_date}**")
 
 # Pilih menu
-app_mode = st.sidebar.selectbox("Pilih Menu", ["Klasifikasi", "Petunjuk", "Tentang"])
+app_mode = st.sidebar.selectbox("Pilih Menu", ["Klasifikasi", "Penulis"])
 
 if app_mode == "Klasifikasi":
-    st.title("KLASIFIKASI CITRA CHEST X-RAY MENGGUNAKAN KOMBINASI EFFICIENTNET DAN EFFICIENT CHANNEL ATTENTION (ECA)")
-    st.text("Aplikasi ini menggunakan arsitektur EfficientNet-B0.")
+    st.title("PENERAPAN CONVOLUTIONAL BLOCK ATTENTION MODULE (CBAM) PADA  ARSITEKTUR DEEP LEARNING VGG16 UNTUK KLASIFIKASI COVID-19")
+    st.text("Aplikasi ini menggunakan arsitektur VGG16.")
 
     # Unduh model
     model_path = download_model()
@@ -86,25 +86,10 @@ if app_mode == "Klasifikasi":
         except Exception as e:
             st.error(f"Terjadi kesalahan: {e}")
 
-elif app_mode == "Petunjuk":
-    st.title("Petunjuk Penggunaan")
-    st.write("""
-        1. Pilih menu **Klasifikasi** untuk mengunggah Citra Chest X-Ray.
-        2. Pilih Citra Chest X-Ray yang ingin Anda klasifikasikan.
-        3. Aplikasi ini akan memberikan prediksi apakah gambar tersebut termasuk **COVID-19**, **Pneumonia**, atau **Normal**.
-        4. Hasil prediksi akan menunjukkan nama kelas dan tingkat kepercayaan model.
-    """)
-
-elif app_mode == "Tentang":
-    st.title("Tentang Aplikasi")
-    st.write("""
-        Aplikasi ini menggunakan model **EfficientNetB0** yang telah dilatih untuk mengklasifikasikan Chest X-Ray menjadi tiga kelas:
-        - **COVID-19**
-        - **Pneumonia**
-        - **Normal**
-    """)
+elif app_mode == "Penulis":
+    st.title("Penulis")
     st.write("""
         oleh : <br>
-        Lu'luatul Maknunah 210411100048 <br>
+        Niswatul Sifa 210411100145 <br>
         Dosen Pembimbing Riset : Prof. Dr. Rima Tri Wahyuningrum, S.T., MT.
     """, unsafe_allow_html=True)
